@@ -44,6 +44,7 @@ import org.apache.rocketmq.common.protocol.body.ConsumerRunningInfo;
 import org.apache.rocketmq.common.protocol.body.GroupList;
 import org.apache.rocketmq.common.protocol.body.KVTable;
 import org.apache.rocketmq.common.protocol.body.ProducerConnection;
+import org.apache.rocketmq.common.protocol.body.QueryConsumeQueueResponseBody;
 import org.apache.rocketmq.common.protocol.body.QueueTimeSpan;
 import org.apache.rocketmq.common.protocol.body.SubscriptionGroupWrapper;
 import org.apache.rocketmq.common.protocol.body.TopicConfigSerializeWrapper;
@@ -401,7 +402,7 @@ public class MQAdminExtImpl implements MQAdminExt {
         String msgId) throws RemotingException, MQBrokerException, InterruptedException, MQClientException {
         logger.info("MessageClientIDSetter.getNearlyTimeFromID(msgId)={} msgId={}", MessageClientIDSetter.getNearlyTimeFromID(msgId), msgId);
         try {
-            return viewMessage(msgId);
+            return viewMessage(msgId); //如果是msgId 会抛异常的，只有offsetMsgId这种才不会抛异常的
         }
         catch (Exception e) {
         }
@@ -496,6 +497,11 @@ public class MQAdminExtImpl implements MQAdminExt {
 
     @Override public Map<String, Properties> getNameServerConfig(
         List<String> list) throws InterruptedException, RemotingTimeoutException, RemotingSendRequestException, RemotingConnectException, MQClientException, UnsupportedEncodingException {
+        return null;
+    }
+
+    @Override public QueryConsumeQueueResponseBody queryConsumeQueue(String s, String s1, int i, long l, int i1,
+        String s2) throws InterruptedException, RemotingTimeoutException, RemotingSendRequestException, RemotingConnectException, MQClientException {
         return null;
     }
 }
